@@ -13,6 +13,7 @@ import type { Page } from './components/Sidebar';
 export default function App() {
   const [page, setPage] = useState<Page>('dashboard');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   const handleNavigate = (p: Page) => {
     setPage(p);
@@ -46,9 +47,11 @@ export default function App() {
         onNavigate={handleNavigate}
         collapsed={sidebarCollapsed}
         onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
+        mobileOpen={mobileSidebarOpen}
+        onCloseMobile={() => setMobileSidebarOpen(false)}
       />
       <div className={`transition-all duration-300 ${sidebarCollapsed ? 'lg:ml-[76px]' : 'lg:ml-[260px]'}`}>
-        <Header onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)} />
+        <Header onToggleSidebar={() => setMobileSidebarOpen(true)} />
         <main className="p-4 lg:p-6">
           {renderPage()}
         </main>
